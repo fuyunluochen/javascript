@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 指定文档字符编码为 UTF-8 -->
+    <meta charset="UTF-8">
+    <!-- 设置视口，使页面在移动设备上正确显示 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 页面标题 -->
+    <title>杨辉三角</title>
+    <style>
+        /* 为杨辉三角的容器设置居中和对齐样式 */
+        .triangle {
+            text-align: center;
+            margin-top: 20px;
+        }
+        /* 为每行杨辉三角设置外边距 */
+        .triangle div {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 杨辉三角的显示容器 -->
+    <div class="triangle" id="triangle"></div>
+
+    <script>
+        /**
+         * 生成指定行数的杨辉三角
+         * @param {number} rows - 杨辉三角的行数
+         * @returns {Array<Array<number>>} - 返回一个二维数组，表示杨辉三角的每一行
+         */
+        function generatePascalTriangle(rows) {
+            let triangle = [];
+            for (let i = 0; i < rows; i++) {
+                triangle[i] = [];
+                triangle[i][0] = 1;
+                for (let j = 1; j < i; j++) {
+                    triangle[i][j] = triangle[i - 1][j - 1] + triangle[i - 1][j];
+                }
+                triangle[i][i] = 1;
+            }
+            return triangle;
+        }
+
+        /**
+         * 将生成的杨辉三角显示在页面上
+         * @param {Array<Array<number>>} triangle - 一个二维数组，表示杨辉三角的每一行
+         */
+        function displayPascalTriangle(triangle) {
+            const container = document.getElementById('triangle');
+            triangle.forEach(row => {
+                const rowDiv = document.createElement('div');
+                row.forEach(num => {
+                    const numSpan = document.createElement('span');
+                    numSpan.textContent = num + ' ';
+                    rowDiv.appendChild(numSpan);
+                });
+                container.appendChild(rowDiv);
+            });
+        }
+
+        // 生成5行的杨辉三角并显示在页面上
+        const triangle = generatePascalTriangle(5);
+        displayPascalTriangle(triangle);
+    </script>
+</body>
+</html>

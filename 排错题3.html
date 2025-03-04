@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 用户输入1-10之间的数字则循环打印用户输入的次数
+        // 注意这个题目有两个错误
+
+        // prompt获取的是字符串
+        // let num=prompt('请输入一个1~10之间的整数:')
+        let num=Number(prompt('请输入一个1~10之间的整数:'))
+        let i=1
+        // 循环只进行比较而没有结束条件,while将会一直执行
+        while(i<num){
+            if (num>1&&num<=10) {
+                console.log(`我是第${i}句话`);
+                i++
+            }
+        }
+    </script>
+</body>
+</html>

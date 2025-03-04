@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        while(true){
+            let a=Number(prompt('请输入a的值:'))
+            let b=Number(prompt('请输入b的值:'))
+            let re=prompt('请输入运算符,q退出')
+            if(re=='q'){
+                break;
+            }
+            switch (re) {
+                case '-':
+                    alert(a-b)
+                    break;
+                case '+':
+                    alert(a+b)
+                    break;
+                case '*':
+                    alert(a*b)
+                    break;
+                case '/':
+                    if (a==0) {
+                        alert('被除数不能为零')
+                        break
+                    }
+                    alert(a/b)
+                default:
+                    break;
+            }
+
+        }
+    </script>
+</body>
+</html>
