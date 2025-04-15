@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>根据数据生成柱形图</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      .box {
+        display: flex;
+        width: 800px;
+        /* 高度: 1000px; */
+        border-left: 1px solid #666;
+        border-bottom: 1px solid #666;
+        margin: 50px auto;
+        justify-content: space-around;
+        align-items: flex-end;
+        text-align: center;
+        position: relative;
+      }
+
+      .box > div {
+        display: flex;
+        width: 50px;
+        background-color: #4caf50;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 0 10px;
+      }
+
+      .box div span {
+        margin-top: -20px;
+        color: #333;
+        font-weight: bold;
+      }
+
+      .box div h4 {
+        margin-bottom: -35px;
+        width: 70px;
+        margin-left: -10px;
+        color: #333;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      let array = [];
+      for (let i = 1; i <= 12; i++) {
+        let monthlyData = +prompt(`请输入第${i}月份的水电数据`);
+        array.push(monthlyData);
+      }
+      let maximumHeight = Math.max(array);
+      document.write(`
+        <div class="box" style="height:${maximumHeight}px">
+      `);
+      array.ForEach((data, index) => {
+        document.write(`
+            <div style="height:${data}px">
+                <span>${data}</span>
+                <h4>${index + 1}月份</h4>
+            </div>
+        `);
+      });
+      document.write(`
+        </div>
+      `);
+    </script>
+  </body>
+</html>

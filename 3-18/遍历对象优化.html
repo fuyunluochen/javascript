@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>遍历对象优化</title>
+  </head>
+  <body>
+    <script>
+      // 原始对象
+      let obj = {
+        name: "张三",
+        age: 18,
+        sex: "男",
+        say: function () {
+          console.log("我是" + this.name + "我今年" + this.age + "岁了");
+        },
+        address: "北京",
+        hobbies: ["吃饭", "睡觉", "打豆豆"],
+      };
+
+      // 方法一：使用Object.keys()遍历对象
+      console.log("===== 使用Object.keys()遍历对象 =====");
+      Object.keys(obj).forEach((key) => {
+        console.log(`${key}: ${obj[key]}`);
+      });
+
+      // 方法二：使用Object.entries()遍历对象（获取键值对）
+      console.log("===== 使用Object.entries()遍历对象 =====");
+      Object.entries(obj).forEach(([key, value]) => {
+        console.log(`${key}: ${value}`);
+      });
+
+      // 方法三：使用Object.values()只获取值
+      console.log("===== 使用Object.values()获取对象值 =====");
+      Object.values(obj).forEach((value) => {
+        console.log(value);
+      });
+
+      // 原始数组对象
+      let arr = [
+        { name: "张三", age: 18, sex: "男" },
+        { name: "李四", age: 19, sex: "男" },
+        { name: "王五", age: 20, sex: "男" },
+      ];
+
+      // 方法一：使用forEach遍历数组对象
+      console.log("===== 使用forEach遍历数组对象 =====");
+      arr.forEach((person) => {
+        Object.entries(person).forEach(([key, value]) => {
+          console.log(`${key}: ${value}`);
+        });
+        console.log("----------"); // 分隔每个人的信息
+      });
+
+      // 方法二：使用map处理数组对象
+      console.log("===== 使用map处理数组对象 =====");
+      const personInfos = arr.map((person) => {
+        return `姓名：${person.name}，年龄：${person.age}，性别：${person.sex}`;
+      });
+      personInfos.forEach((info) => console.log(info));
+
+      // 原始代码（保留但注释掉）
+      console.log("===== 原始代码输出（参考） =====");
+      for (const key in arr) {
+        for (const key1 in arr[key]) {
+          console.log(`${key1}:${arr[key][key1]}`);
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let obj = {
+        name: "张三",
+        age: 18,
+        sex: "男",
+        say: function () {
+          console.log("我是" + this.name + "我今年" + this.age + "岁了");
+        },
+        address: "北京",
+        hobbies: ["吃饭", "睡觉", "打豆豆"],
+      };
+      //   for (const key in obj) {
+      //     alert(`${key}:${obj[key]}`);
+      //   }
+      //   数组对象
+      let arr = [
+        { name: "张三", age: 18, sex: "男" },
+        { name: "李四", age: 19, sex: "男" },
+        { name: "王五", age: 20, sex: "男" },
+      ];
+      for (const key in arr) {
+        for (const key1 in arr[key]) {
+          console.log(`${key1}:${arr[key][key1]}`);
+        }
+      }
+    </script>
+  </body>
+</html>

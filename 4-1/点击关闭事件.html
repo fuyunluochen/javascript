@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        margin: 50px auto;
+        cursor: pointer;
+      }
+
+      .small-box {
+        width: 100px;
+        height: 100px;
+        background-color: #e0e0e0;
+        border: 1px solid #ccc;
+        margin: 20px auto;
+        cursor: pointer;
+      }
+
+      .content {
+        padding: 20px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <div class="content">这是一个大盒子</div>
+    </div>
+    <div class="small-box">这是一个小盒子</div>
+
+    <script>
+      const box = document.querySelector(".box");
+      const smallBox = document.querySelector(".small-box");
+
+      box.style.display = "none";
+
+      smallBox.addEventListener("click", function () {
+        box.style.display = "block";
+        smallBox.style.display = "none";
+      });
+
+      box.addEventListener("click", function () {
+        box.style.display = "none";
+        smallBox.style.display = "block";
+      });
+    </script>
+  </body>
+</html>

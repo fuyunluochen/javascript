@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>键盘</title>
+  </head>
+  <body>    <!-- 鼠标分为单机双击 移动 mouseenter mouseleave -->
+    <!-- keydown 键盘按下触发 keyup 键盘抬起触发 input 输入事件 -->
+    <input type="text" />
+    <script>
+      const input = document.querySelector("input");
+      input.addEventListener("keydown", function () {
+        console.log("键盘按下");
+      });
+      input.addEventListener("keyup", function () {
+        console.log("键盘弹起");
+      });
+      input.addEventListener("input", function () {
+        console.log(input.value);
+      });
+    </script>
+  </body>
+</html>

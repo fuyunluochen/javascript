@@ -1,11 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    
-</body>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <form id="ageForm">
+      <label for="ageInput">请输入年龄:</label>
+
+      <input type="number" id="ageInput" min="1" max="100" required />
+      <button type="submit">提交</button>
+    </form>
+    <div id="result"></div>
+    <script>
+      let ageArray = [];
+      let sum = 0,
+        maximumAge = ageArray[0],
+        minimumAge = ageArray[0],
+        numberOfAdults = 0;
+      let i = 0;
+
+      document
+        .getElementById("ageForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          let ageEntry = +document.getElementById("ageInput").value;
+
+          if (ageEntry > 0 && ageEntry <= 100) {
+            ageArray[i] = ageEntry;
+            sum += ageEntry;
+            if (ageArray[i] > maximumAge) {
+              maximumAge = ageArray[i];
+            }
+            if (ageArray[i] < minimumAge) {
+              minimumAge = ageArray[i];
+            }
+            if (ageArray[i] > 18) {
+              numberOfAdults++;
+            }
+            i++;
+          }
+          document.getElementById("ageInput").value = "";
+          if (ageArray.length === 10) {
+            document.getElementById("result").innerHTML = `
+            总年龄为:${sum}<br/>
+            平均年龄为:${sum / ageArray.length}<br/>
+            最大值为:${maximumAge},最小值为:${minimumAge}<br/>
+            成年人数量${numberOfAdults}
+          `;
+
+            document.getElementById("ageForm").style.display = "none";
+          }
+        });
+    </script>
+  </body>
 </html>

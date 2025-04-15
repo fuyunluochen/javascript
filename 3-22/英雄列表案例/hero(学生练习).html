@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>渲染英雄列表案例</title>
+    <link rel="stylesheet" href="css/hero.css" />
+  </head>
+
+  <body>
+    <h1>英雄列表展示</h1>
+    <div class="container" id="heroContainer"></div>
+    <script>
+      let datas = [
+        {
+          name: "司马懿",
+          imgSrc: "./uploads/heros/01.jpg",
+        },
+        {
+          name: "诸葛亮",
+          imgSrc: "./uploads/heros/02.jpg",
+        },
+        {
+          name: "刘备",
+          imgSrc: "./uploads/heros/03.jpg",
+        },
+        {
+          name: "关羽",
+          imgSrc: "./uploads/heros/04.jpg",
+        },
+        {
+          name: "张飞",
+          imgSrc: "./uploads/heros/05.jpg",
+        },
+        {
+          name: "赵云",
+          imgSrc: "./uploads/heros/06.jpg",
+        },
+        {
+          name: "马超",
+          imgSrc: "./uploads/heros/07.jpg",
+        },
+        {
+          name: "黄忠",
+          imgSrc: "./uploads/heros/08.jpg",
+        },
+        {
+          name: "魏延",
+          imgSrc: "./uploads/heros/09.jpg",
+        },
+        {
+          name: "诸葛亮",
+          imgSrc: "./uploads/heros/10.jpg",
+        },
+        {
+          name: "曹操",
+          imgSrc: "./uploads/heros/11.jpg",
+        },
+        {
+          name: "孙权",
+          imgSrc: "./uploads/heros/12.jpg",
+        },
+        {
+          name: "周瑜",
+          imgSrc: "./uploads/heros/13.jpg",
+        },
+        {
+          name: "吕蒙",
+          imgSrc: "./uploads/heros/14.jpg",
+        },
+        {
+          name: "陆逊",
+          imgSrc: "./uploads/heros/15.jpg",
+        },
+        {
+          name: "吕蒙",
+          imgSrc: "./uploads/heros/16.jpg",
+        },
+        {
+          name: "陆逊",
+          imgSrc: "./uploads/heros/17.jpg",
+        },
+        {
+          name: "吕蒙",
+          imgSrc: "./uploads/heros/18.jpg",
+        },
+        {
+          name: "陆逊",
+          imgSrc: "./uploads/heros/19.jpg",
+        },
+        {
+          name: "吕蒙",
+          imgSrc: "./uploads/heros/20.jpg",
+        },
+      ];
+      // 获取容器元素
+      const container = document.getElementById("heroContainer");
+
+      // 创建英雄列表
+      const heroList = document.createElement("ul");
+      heroList.className = "list";
+
+      // 遍历数据并创建英雄卡片
+      for (let i = 0; i < datas.length; i++) {
+        // 创建列表项
+        const listItem = document.createElement("li");
+
+        // 创建图片元素
+        const img = document.createElement("img");
+        img.src = datas[i].imgSrc;
+        img.alt = datas[i].name;
+
+        // 创建名称元素
+        const name = document.createElement("p");
+        name.textContent = datas[i].name;
+
+        // 将元素添加到列表项
+        listItem.appendChild(img);
+        listItem.appendChild(name);
+
+        // 将列表项添加到列表
+        heroList.appendChild(listItem);
+      }
+
+      // 将列表添加到容器
+      container.appendChild(heroList);
+    </script>
+  </body>
+</html>

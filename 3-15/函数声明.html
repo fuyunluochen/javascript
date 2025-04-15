@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function hi() {
+        console.log("hello world!");
+      }
+      let numberOfCycles = +prompt("请输入循环次数");
+      for (let i = 0; i < numberOfCycles; i++) {
+        hi();
+      }
+
+      // 带参数函数实现对确定人打招呼
+      function hi(name) {
+        console.log("hello " + name + "!");
+      }
+      hi("张三");
+    </script>
+  </body>
+</html>

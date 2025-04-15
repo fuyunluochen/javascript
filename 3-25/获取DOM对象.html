@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>获取DOM对象</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+      }
+      .box {
+        display: flow-root;
+        width: 200px;
+        height: 200;
+        border: 1px solid rgb(255, 0, 0);
+      }
+      .nav {
+        list-style: none;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        width: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box" id="box">盒子1</div>
+    <div class="box">盒子2</div>
+    <ul class="nav">
+      <li>首页</li>
+      <li>新闻</li>
+      <li>关于</li>
+    </ul>
+    <script>
+      let boxs = document.getElementsByClassName("box");
+      console.log(boxs);
+      document.querySelector("ul li:first-child").style.color = "red";
+      lis = document.querySelectorAll("ul li");
+      for (let i = 0; i < lis.length; i++) {
+        lis[i].style.color = "red";
+      }
+    </script>
+  </body>
+</html>

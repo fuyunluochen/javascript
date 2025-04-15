@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>随机点名系统</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Microsoft YaHei", sans-serif;
+        background-color: #f5f5f5;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        color: #333;
+      }
+      h2 {
+        color: #2c3e50;
+        margin-bottom: 30px;
+        font-size: 2.5rem;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      }
+      .container {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        width: 400px;
+        text-align: center;
+      }
+      .result {
+        margin: 20px 0;
+        padding: 15px;
+        border-radius: 8px;
+        background-color: #f0f8ff;
+        border: 1px solid #b0e0e6;
+      }
+      .result p {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+      }
+      .qs {
+        display: inline-block;
+        min-width: 100px;
+        min-height: 30px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #e74c3c;
+        padding: 5px 10px;
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      .bths {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+      button {
+        padding: 10px 25px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: bold;
+      }
+      .start {
+        background-color: #2ecc71;
+        color: white;
+      }
+      .end {
+        background-color: #e74c3c;
+        color: white;
+      }
+      button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+      button:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>随机点名</h2>
+      <div class="result">
+        <p>点名结果：<pc class="qs"></pc></p>
+      </div>
+      <div class="bths">
+        <button class="start">开始</button>
+        <button class="end">结束</button>
+      </div>
+    </div>
+    <script>
+      const arr = [
+        "张三",
+        "李四",
+        "王五",
+        "赵六",
+        "钱七",
+        "孙八",
+        "周九",
+        "吴十",
+      ];
+      let timerId = 0;
+      let random = 0;
+      const start = document.querySelector(".start");
+      const end = document.querySelector(".end");
+      const qs = document.querySelector(".qs");
+      start.addEventListener("click", function () {
+        timerId = setInterval(function () {
+          random = Math.floor(Math.random() * arr.length);
+          qs.innerHTML = arr[random];
+        }, 500);
+      });
+
+      end.addEventListener("click", function () {
+        clearInterval(timerId);
+      });
+    </script>
+  </body>
+</html>

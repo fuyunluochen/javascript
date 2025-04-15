@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>转换秒数</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>秒数转换工具</h1>
+        <div class="input-group">
+            <label for="seconds">请输入秒数：</label>
+            <input type="number" id="seconds" placeholder="例如：3600" min="0" />
+            <div class="error" id="error">请输入有效的秒数</div>
+        </div>
+        <button id="convert">转换</button>
+        <div class="result" id="result">
+            <div class="result-title">转换结果：</div>
+            <div class="result-content" id="result-content"></div>
+        </div>
+    </div>
+
+    <script>
+        // 获取DOM元素
+        const secondsInput = document.getElementById('seconds');
+        const convertBtn = document.getElementById('convert');
+        const resultDiv = document.getElementById('result');
+        const resultContent = document.getElementById('result-content');
+        const errorDiv = document.getElementById('error');
+
+        // 转换秒数函数
+        function conversionSeconds(second) {
+            // 计算年份（按365天计算）
+            let years = parseInt(second / 60 / 60 / 24 / 365);
+            // 计算年份之外的总天数
+            let totalDaysAfterYears = parseInt((second / 60 / 60 / 24) % 365);
+            // 计算月份（按30天计算一个月）
+            let months = parseInt(totalDaysAfterYears / 30);
+            // 计算剩余天数（月份之外的天数）
+            let days = parseInt(totalDaysAfterYears % 30);
+            let h = parseInt((second / 60 / 60) % 24);
+            let minute = parseInt((second / 60) % 60);
+            let s = parseInt(second % 60);
+
+            // 使用padStart确保每个数值都是两位数，不足的补零
+            years = String(years).padStart(2, "0");
+            months = String(months).padStart(2, "0");
+            days = String(days).padStart(2, "0");
+            h = String(h).padStart(2, "0");
+            minute = String(minute).padStart(2, "0");
+            s = String(s).padStart(2, "0");
+
+            return `${years}年${months}月${days}天${h}小时${minute}分${s}秒`;
+        }
+
+        // 点击转换按钮事件
+        convertBtn.addEventListener('click', function () {
+            // 获取输入值并验证
+            const secondValue = secondsInput.value.trim();
+
+            if (secondValue === '' || isNaN(secondValue) || secondValue < 0) {
+                errorDiv.style.display = 'block';
+                resultDiv.classList.remove('show');
+                return;
+            }
+
+            // 隐藏错误信息
+            errorDiv.style.display = 'none';
+
+            // 转换并显示结果
+            const second = parseInt(secondValue);
+            const result = conversionSeconds(second);
+            resultContent.textContent = result;
+            resultDiv.classList.add('show');
+        });
+
+        // 输入框按回车键也可以触发转换
+        secondsInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                convertBtn.click();
+            }
+        });
+        // 输入框获得焦点时隐藏错误信息
+        secondsInput.addEventListener('focus', function () {
+            errorDiv.style.display = 'none';
+        });
+    </script>
+</body>
+
+</html>
