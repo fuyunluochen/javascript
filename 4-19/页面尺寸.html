@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>页面尺寸</title>
+    <style>
+      div {
+        display: inline-block;
+        width: 200px;
+        height: 200px;
+        background-color: pink;
+        padding: 10px;
+        border: 20px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <div>12345672345134625798123495718979872983749198359</div>
+  </body>
+  <script>
+    const div = document.querySelector("div");
+    console.log(div.clientWidth);
+    window.addEventListener("resize", function () {
+      console.log(1);
+    });
+  </script>
+</html>
