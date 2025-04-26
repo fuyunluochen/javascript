@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div
+      id="close-demo-container"
+      style="
+        margin: 40px auto;
+        max-width: 400px;
+        padding: 24px;
+        border: 1px solid #ccc;
+        text-align: center;
+      "
+    >
+      <div
+        id="target-box"
+        style="padding: 20px; background: #f5f5f5; margin-bottom: 16px"
+      >
+        这是一个可以被关闭的内容区域。
+      </div>
+      <button id="close-btn" style="padding: 8px 20px">关闭内容</button>
+    </div>
+    <script src="close.js"></script>
+    <script>
+      // 页面加载后绑定关闭事件
+      window.onload = function () {
+        // 调用封装的绑定函数
+        bindCloseEvent("#close-btn", "#target-box");
+      };
+    </script>
+  </body>
+</html>
