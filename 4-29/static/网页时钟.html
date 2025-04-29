@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>网页时钟</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f0f0f0;
+      }
+      .clock {
+        width: 300px; /* 增大时钟尺寸 */
+        height: 300px; /* 增大时钟尺寸 */
+        border: 5px solid black;
+        border-radius: 50%;
+        position: relative;
+      }
+      .hand {
+        position: absolute;
+        width: 50%;
+        height: 6px;
+        background: black;
+        top: 50%;
+        left: 50%;
+        transform-origin: 0% 50%; /* Changed from 100% to 0% to rotate from center */
+        transform: translate(0, -50%) rotate(90deg); /* Initial position pointing to 12 */
+        border-radius: 3px;
+      }
+      .hour {
+        height: 8px;
+        width: 35%;
+        left: 50%; /* Adjust left to center */
+        background-color: blue;
+      }
+      .minute {
+        height: 5px;
+        width: 45%;
+        left: 50%; /* Adjust left to center */
+        background-color: green;
+      }
+      .second {
+        height: 2px;
+        width: 50%;
+        left: 50%; /* Adjust left to center */
+        background-color: red;
+      }
+      .number {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        /* 初始旋转，让数字朝上 */
+        transform: rotate(var(--rotation));
+      }
+      .number span {
+        display: inline-block;
+        /* 反向旋转，让数字本身保持直立 */
+        transform: rotate(calc(-1 * var(--rotation)));
+      }
+      .minute-mark {
+        position: absolute;
+        width: 1px;
+        height: 5px;
+        background-color: #666;
+        top: 0;
+        left: 50%;
+        transform-origin: 50% 150px; /* 150px is the new radius */
+        transform: translateX(-50%) rotate(var(--rotation));
+      }
+      .hour-mark {
+        height: 10px;
+        width: 2px;
+        background-color: #333;
+      }
+      /* 数字时钟样式 */
+      .digital-clock {
+        position: absolute;
+        top: 60%; /* 调整位置，使其在时钟下方 */
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 24px;
+        font-family: "Arial", sans-serif;
+        color: #333;
+        background-color: rgba(255, 255, 255, 0.7);
+        padding: 5px 10px;
+        border-radius: 5px;
+        z-index: 10; /* 确保在指针上方 */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 时钟容器 -->
+    <div class="clock">
+      <!-- 时针 -->
+      <div class="hand hour" id="h"></div>
+      <!-- 分针 -->
+      <div class="hand minute" id="m"></div>
+      <!-- 秒针 -->
+      <div class="hand second" id="s"></div>
+      <!-- 数字 -->
+      <div class="number" style="--rotation: 30deg"><span>1</span></div>
+      <div class="number" style="--rotation: 60deg"><span>2</span></div>
+      <div class="number" style="--rotation: 90deg"><span>3</span></div>
+      <div class="number" style="--rotation: 120deg"><span>4</span></div>
+      <div class="number" style="--rotation: 150deg"><span>5</span></div>
+      <div class="number" style="--rotation: 180deg"><span>6</span></div>
+      <div class="number" style="--rotation: 210deg"><span>7</span></div>
+      <div class="number" style="--rotation: 240deg"><span>8</span></div>
+      <div class="number" style="--rotation: 270deg"><span>9</span></div>
+      <div class="number" style="--rotation: 300deg"><span>10</span></div>
+      <div class="number" style="--rotation: 330deg"><span>11</span></div>
+      <div class="number" style="--rotation: 360deg"><span>12</span></div>
+      <!-- 数字时钟显示区域 -->
+      <div class="digital-clock" id="digital-time"></div>
+    </div>
+  </body>
+  <script>
+    const hour = document.getElementById("h");
+    const minute = document.getElementById("m");
+    const second = document.getElementById("s");
+    const digitalTime = document.getElementById("digital-time"); // 获取数字时钟元素
+    const clockContainer = document.querySelector(".clock");
+
+    /**
+     * 生成时钟刻度
+     */
+    function createMarks() {
+      for (let i = 0; i < 60; i++) {
+        const mark = document.createElement("div");
+        mark.classList.add("minute-mark");
+        // 每5个刻度是一个小时刻度，样式不同
+        if (i % 5 === 0) {
+          mark.classList.add("hour-mark");
+        }
+        // 计算每个刻度的旋转角度 (6度)
+        const rotation = i * 6;
+        mark.style.setProperty("--rotation", `${rotation}deg`);
+        clockContainer.appendChild(mark);
+      }
+    }
+
+    // 生成刻度
+    createMarks();
+
+    /**
+     * 更新时钟指针和数字时间的显示
+     */
+    function clock() {
+      const date = new Date();
+      const hh = date.getHours();
+      const mm = date.getMinutes();
+      const ss = date.getSeconds();
+
+      // 计算时针、分针、秒针的旋转角度 (初始指向12点，即-90度)
+      const hourDeg = (hh % 12) * 30 + (mm / 60) * 30 - 90;
+      const minuteDeg = mm * 6 + (ss / 60) * 6 - 90;
+      const secondDeg = ss * 6 - 90;
+
+      // 应用旋转变换
+      // 注意：transform-origin 设置为 0% 50% 后，旋转中心在左侧中心
+      // 因此旋转角度需要调整，或者调整 transform-origin 为 center center
+      // 这里保持 transform-origin: 0% 50%; 并调整了初始角度和计算方式
+      hour.style.transform = `translate(0, -50%) rotate(${hourDeg}deg)`;
+      minute.style.transform = `translate(0, -50%) rotate(${minuteDeg}deg)`;
+      second.style.transform = `translate(0, -50%) rotate(${secondDeg}deg)`;
+
+      // 更新数字时钟显示
+      // 格式化时间，确保小时、分钟、秒始终为两位数
+      const formattedHh = String(hh).padStart(2, "0");
+      const formattedMm = String(mm).padStart(2, "0");
+      const formattedSs = String(ss).padStart(2, "0");
+      digitalTime.innerHTML = `${formattedHh}:${formattedMm}:${formattedSs}`;
+    }
+
+    // 初始调用一次以立即显示时间
+    clock();
+    // 每秒更新一次时钟
+    setInterval(clock, 1000);
+  </script>
+</html>

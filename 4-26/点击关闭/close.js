@@ -2,11 +2,6 @@
 // 实现关闭按钮点击事件的模块
 
 /**
- * 绑定关闭按钮的点击事件，点击后隐藏指定元素
- * @param {string} buttonSelector - 关闭按钮的选择器
- * @param {string} targetSelector - 需要隐藏的目标元素选择器
- */
-/**
  * 绑定按钮的点击事件，点击后切换指定元素的显示/隐藏状态
  * @param {string} buttonSelector - 按钮的选择器
  * @param {string} targetSelector - 需要切换显示/隐藏的目标元素选择器
