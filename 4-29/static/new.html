@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* CSS: 微博帖子样式 */
+        /* 版本号: 1.0.0 */
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #333; /* 深色背景突出手机模拟器 */
+            margin: 0;
+            padding: 20px; /* 给手机模拟器一些边距 */
+        }
+
+        .phone-container {
+            width: 375px; /* 模拟iPhone 6/7/8 宽度 */
+            height: 667px; /* 模拟iPhone 6/7/8 高度 */
+            background-color: #f0f2f5; /* 手机屏幕背景色 */
+            border: 10px solid #111; /* 手机边框 */
+            border-radius: 30px; /* 手机圆角 */
+            box-shadow: 0 0 20px rgba(0,0,0,0.5); /* 手机阴影 */
+            display: flex;
+            flex-direction: column; /* 内部元素垂直排列 */
+            overflow: hidden; /* 隐藏超出手机屏幕的内容 */
+        }
+
+        .weibo-post {
+            background-color: #fff;
+            /* border: 1px solid #e1e8ed; */ /* 在手机模拟器中，帖子不需要额外边框 */
+            border-radius: 0; /* 帖子在手机屏幕内不需要圆角 */
+            width: 100%; /* 帖子宽度占满手机容器 */
+            padding: 15px;
+            box-shadow: none; /* 帖子在手机屏幕内不需要额外阴影 */
+            flex-grow: 1; /* 让帖子内容填满剩余空间 */
+            overflow-y: auto; /* 如果内容超出，允许垂直滚动 */
+            margin: 0; /* 移除外边距 */
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            /* 实际使用时请替换为真实图片路径 */
+            background-color: #ccc; /* 占位符颜色 */
+        }
+
+        .username {
+            font-weight: bold;
+            color: #1c1e21;
+        }
+
+        .post-content {
+            margin-bottom: 15px;
+            line-height: 1.4;
+            color: #1c1e21;
+        }
+
+        /* CSS: 向上滚动文字区域样式 */
+        .scrolling-text-container {
+            height: 320px; /* 定义滚动区域的高度 */
+            overflow: hidden; /* 隐藏超出区域的内容 */
+            border: 1px solid #eee;
+            padding: 10px;
+            background-color: #f9f9f9;
+            margin-bottom: 15px;
+            position: relative; /* 为绝对定位的子元素提供参照 */
+        }
+
+        .scrolling-text {
+            position: absolute; /* 允许通过top属性控制位置以实现滚动 */
+            width: 100%;
+            /* JavaScript会动态修改top值 */
+        }
+
+        .scrolling-text p {
+            margin: 0 0 10px 0; /* 段落间距 */
+            padding: 0;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        .actions button {
+            background-color: #f0f2f5;
+            border: 1px solid #ccd0d5;
+            border-radius: 4px;
+            padding: 8px 12px;
+            margin-right: 10px;
+            cursor: pointer;
+            color: #4b4f56;
+        }
+
+        .actions button:hover {
+            background-color: #e4e6eb;
+        }
+    </style>
+</head>
+<body>
+    <!-- 文件级注释：微博案例 - 向上平移文字效果 -->
+    <!-- 版本号：1.0.0 -->
+
+    <!-- 手机模拟器容器 -->
+    <div class="phone-container">
+        <!-- 微博帖子容器 -->
+        <div class="weibo-post">
+        <!-- 用户信息 -->
+        <div class="user-info">
+            <img src="avatar.png" alt="用户头像" class="avatar">
+            <span class="username">用户昵称</span>
+        </div>
+        <!-- 帖子内容 -->
+        <div class="post-content">
+            这是一条微博内容示例。
+        </div>
+        <!-- 向上滚动文字区域 -->
+        <div class="scrolling-text-container">
+            <div class="scrolling-text">
+                <p>这是第一条滚动消息。</p>
+                <p>这是第二条非常非常长的滚动消息，测试换行效果。</p>
+                <p>第三条消息来了！</p>
+                <p>又来一条新的消息，看看效果怎么样。</p>
+                <p>最后一条测试消息，滚动起来！</p>
+            </div>
+        </div>
+        <!-- 操作按钮 -->
+        <div class="actions">
+            <button>转发</button>
+            <button>评论</button>
+            <button>点赞</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript: 实现文字向上滚动效果
+        // 版本号: 1.0.0
+
+        /**
+         * @description 初始化并控制文字向上滚动动画
+         * @function startScrolling
+         */
+        function startScrolling() {
+            // 获取滚动容器和实际滚动内容的元素
+            const container = document.querySelector('.scrolling-text-container');
+            const textElement = document.querySelector('.scrolling-text');
+
+            if (!container || !textElement) {
+                console.error('未找到滚动相关的元素');
+                return;
+            }
+
+            // 复制内容以实现无缝滚动
+            textElement.innerHTML += textElement.innerHTML;
+
+            let currentTop = 0; // 当前的top偏移量
+            const scrollSpeed = 1; // 滚动速度，像素/帧
+            const itemHeight = textElement.offsetHeight / 2; // 单个完整内容块的高度
+
+            /**
+             * @description 执行单帧滚动动画
+             * @function animateScroll
+             */
+            function animateScroll() {
+                currentTop -= scrollSpeed; //向上移动
+                // 当第一份内容完全移出可视区域时，重置位置到初始状态，实现无缝循环
+                if (Math.abs(currentTop) >= itemHeight) {
+                    currentTop = 0;
+                }
+                textElement.style.top = currentTop + 'px';
+                requestAnimationFrame(animateScroll); // 请求下一帧动画
+            }
+
+            // 启动动画
+            requestAnimationFrame(animateScroll);
+        }
+
+        // 页面加载完成后启动滚动
+        window.onload = startScrolling;
+    </script>
+</body>
+</html>
